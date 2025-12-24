@@ -34,6 +34,19 @@
             padding: 0;
             padding-bottom: 90px;
             line-height: 1.6;
+            /* Nexus Protection: 禁止文字選取以增加複製難度 (輸入框除外) */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* 允許輸入框和顯示結果可被選取，避免影響使用體驗 */
+        input, textarea, .report-box, .data-table {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
         }
 
         /* --- Header v9.0: 品牌融合設計 --- */
@@ -275,6 +288,35 @@
     </style>
 </head>
 <body>
+
+<script>
+    // 禁用右鍵選單
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
+    // 禁用常用開發者快捷鍵
+    document.onkeydown = function(e) {
+        // F12
+        if(e.keyCode == 123) {
+            return false;
+        }
+        // Ctrl+Shift+I (Inspect)
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+            return false;
+        }
+        // Ctrl+Shift+C (Inspect Element)
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
+            return false;
+        }
+        // Ctrl+Shift+J (Console)
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+            return false;
+        }
+        // Ctrl+U (View Source)
+        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+            return false;
+        }
+    }
+</script>
 
 <header>
     <div class="logo-box">
